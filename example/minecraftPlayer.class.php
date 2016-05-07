@@ -69,12 +69,15 @@ class Player {
 	        $uuid = explode("-", $uuid);
 	        $uuid = implode("", $uuid);
 	    }
+	    if ($uuid == null OR $uuid == false OR !isset($uuid)) {
+	    	return false;
+	    }
 	    $base = "https://api.mojang.com/user/profiles/";
 	    $url = $base.$uuid."/names";
 	    try {
 		    $json = file_get_contents($url);
 		} catch(Exception $ex) {
-		    return "Invalid UUID!";
+		    return "Invalid";
 		}
 	    $result = json_decode($json, true);
 	    $num = sizeof($result);
