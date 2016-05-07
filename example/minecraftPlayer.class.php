@@ -56,4 +56,39 @@ class Player {
 	    $username = $result[$pos]["name"];
 	    return $username;
 	}
+
+	public function nameHist($uuid) {
+		/**
+		* determine if value is username or UUID.
+		* if username, convert to UUID
+		*/
+		if (strlen($uuid) <= 16) {
+	        $uuid = $this->getUUID($uuid);
+	    }
+	    if (strpos($uuid, "-") !== false) {
+	        $uuid = explode("-", $uuid);
+	        $uuid = implode("", $uuid);
+	    }
+	    $base = "https://api.mojang.com/user/profiles/";
+	    $url = $base.$uuid."/names";
+	    try {
+		    $json = file_get_contents($url);
+		} catch(Exception $ex) {
+		    return "Invalid UUID!";
+		}
+	    $result = json_decode($json, true);
+	    $num = sizeof($result);
+	    $names = array();
+	    for ($n=0; $n < $num; $n++) {
+	    	$name = $result[$n]['name'];
+	    	if (isset($result[$n]['changedToAt'])) {
+	    		$timeStamp = date('M j Y g:i A', $result[$n]['changedToAt']/1000);
+	    	} else {
+	    		$timeStamp = "";
+	    	}
+	    	$push = array('name' => $name, 'time' => $timeStamp);
+	    	array_push($names, $push);
+	    }
+	    return json_encode($names);
+	}
 }
