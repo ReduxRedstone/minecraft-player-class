@@ -82,7 +82,7 @@ class Player {
 	    for ($n=0; $n < $num; $n++) {
 	    	$name = $result[$n]['name'];
 	    	if (isset($result[$n]['changedToAt'])) {
-	    		$timeStamp = date('M j Y g:i A', $result[$n]['changedToAt']/1000);
+	    		$timeStamp = $result[$n]['changedToAt']/1000;
 	    	} else {
 	    		$timeStamp = "";
 	    	}
