@@ -1,8 +1,15 @@
 <?php
 
 /**
-* 
-*/
+ * Class Minecraft Player
+ *
+ * @description Convert UUIDs to player names and player names to UUIDs.
+ * @author Jonathan Barrow (halolink44@gmail.com)
+ * @package Minecraft-Player
+ * @version 1.0
+ * @copyright 2016 Jonathan Barrow
+ * @link https://github.com/ReduxRedstone/minecraft-player-class
+ */
 class Player {
 	
 	public function getUUID($username) {
